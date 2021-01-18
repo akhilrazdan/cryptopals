@@ -18,7 +18,7 @@ def single_byte_xor(text: bytes, key: int) -> bytes:
 
 def compute_fitting_quotient(text: bytes) -> float:
     counter = Counter(text)
-    dist_text = [(counter.get(ord(c), 0) ) for c in occurence_english]
+    dist_text = [(counter.get(ord(c), 0)) / len(text)  for c in occurence_english]
     dist_eng = list(occurence_english.values())
     return sum([abs(a - b) for a, b in zip(dist_eng, dist_text)]) / float(len(dist_text))
 
@@ -28,7 +28,7 @@ def find_encryption_key(encoded_hex: str):
     for i in range(0, 256):
         orig_text = single_byte_xor(bytes.fromhex(encoded_hex), i)
         result.append((compute_fitting_quotient(orig_text.lower()), orig_text.lower(), i))
-    answer = max(result, key=lambda x: x[0])
+    answer = min(result, key=lambda x: x[0])
     return answer
 
 

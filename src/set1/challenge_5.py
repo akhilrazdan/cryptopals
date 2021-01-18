@@ -5,9 +5,17 @@ def repeating_key_xor(orig_text: bytes, repeat_key: str) -> str:
         val.append(result)
     return bytes(val).hex()
 
+def repeating_key_xor_b(orig_text: bytes, repeat_key: bytes) -> bytes:
+    val = []
+    for i, orig_byte in enumerate(orig_text):
+        result = orig_byte ^ repeat_key[i % len(repeat_key)]
+        val.append(result)
+    return bytes(val)
+
+
 
 if __name__ == '__main__':
-    print(repeating_key_xor(b"This is a secret message", "MySecretPassword"))
+    print(repeating_key_xor_b(b"This is a secret message",b"MySecretPassword").hex())
     print(bytes.fromhex(repeating_key_xor(bytes.fromhex('19113a16431b165431410016141d17106d14361610130211'), "MySecretPassword")))
     assert repeating_key_xor(
         b"Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal",

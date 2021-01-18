@@ -68,5 +68,5 @@ if __name__ == "__main__":
             values.append(find_encryption_key(line))
 
     print(values)
-    fin = sorted(values, key=lambda x: x[0], reverse=True)[0]
+    fin = sorted(values, key=lambda x: x[0])[0]
     print(fin)
