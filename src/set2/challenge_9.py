@@ -1,9 +1,9 @@
 # Inspired from https://joshfrogers.co.uk/cryptopals-set2-ex1/
 
 
-def pkcs7_pad(input: bytes, padded_length: int) -> bytes:
-    assert len(input) <= padded_length, "input should be <= padded len"
-    difference_in_padding = (padded_length - len(input)) % padded_length
+def pkcs7_pad(input: bytes, block_size: int) -> bytes:
+    #assert len(input) <= padded_length, "input should be <= padded len"
+    difference_in_padding = block_size - (len(input) % block_size)
     output = b""
     output += input
     output += bytes((chr(difference_in_padding) * difference_in_padding).encode())
